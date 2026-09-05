@@ -18,7 +18,8 @@ def analyze_route(req: AddressRequest):
     response = requests.get(url).json()
 
     if response['status'] != 'OK' or not response['results']:
-        return {"district": "Nie rozpoznano"}
+    # Zamiast domyślnego "Nie rozpoznano", zwróćmy powód błędu
+     return {"district": f"Błąd API: {response['status']}"}
 
     components = response['results'][0]['address_components']
     district = "Brak danych"
